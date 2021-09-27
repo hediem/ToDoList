@@ -8,6 +8,8 @@ function Tododata(){
     const [state, setState] = useState("all");
     const [filteredTodos, setFilteredTodos] = useState([]);
 
+
+    //testing
     useEffect(() =>{
             axios.get('https://jsonplaceholder.typicode.com/todos')
             .then((res) => {
