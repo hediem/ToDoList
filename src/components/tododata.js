@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './tododata.css' 
+import item from './item';
 const axios = require('axios').default;
 
 function Tododata(){
@@ -52,7 +53,12 @@ function Tododata(){
     }
     return(
         <div>
-            <p className="header">To Do :</p>
+            <div>
+                <label className="header">
+                To Do :
+                <input type="text"  />
+                </label>
+            </div>
             <div className="base">
                 <div className="nav">
                     <div className="btn-group">
@@ -68,15 +74,7 @@ function Tododata(){
                     </div>
                     <br/>
                 <div className="list-group">
-                    {filteredTodos.map((value,index) => <div key={index}>                
-                        <label className="list-group-item" >
-                        <input className="form-check-input me-1" type="checkbox" value="" checked={(value.completed) ? "checked" : ""} 
-                        onChange={() =>{                            
-                            changeCompleteState(!value.completed, value.id)
-                        }} />
-                            {value.title}
-                        </label>
-                         <br/></div>)}
+                    {filteredTodos.map((value,index) =>item(value,index,changeCompleteState) )}
                 </div>
             </div>
         </div>
