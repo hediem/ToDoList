@@ -25,3 +25,9 @@
   background-color: darkviolet;
   border-color: darkviolet;
 }
+.my-input {
+  border: none !important;
+}
+.my-input:focus {
+  outline: none;
+}

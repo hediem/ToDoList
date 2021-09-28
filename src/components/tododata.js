@@ -10,6 +10,7 @@ function Tododata(){
     const [filteredTodos, setFilteredTodos] = useState([]);
     // const[check,setCheck] = useState()
     // const[checkId,setCheckId]=useState()
+    const [searchText,setSearchText] = useState(" ")
 
     useEffect(() =>{
             axios.get('https://jsonplaceholder.typicode.com/todos')
@@ -24,18 +25,20 @@ function Tododata(){
     },[])
 
     useEffect(() => {
+        let list = [...todo]
         switch(status){
-                case "all":
-                    setFilteredTodos(todo);
-                    break;
+
                 case "completed":
-                    setFilteredTodos(todo.filter(td => td.completed));
+                    list=list.filter(td => td.completed);
                     break;
                 case "uncompleted":
-                    setFilteredTodos(todo.filter(td => !td.completed));
+                    list=list.filter(td => !td.completed);
+                    break;
         }
-    }, [status,todo])
- 
+        list=list.filter(td => td.title.toLowerCase().includes(searchText.toLowerCase()))
+        setFilteredTodos(list)
+    }, [status,todo,searchText])
+                
 //    const handleCompleted = (value) => {
 //         return !value 
 //     }
@@ -51,19 +54,20 @@ function Tododata(){
             return todo;
         }))
     }
+
     return(
         <div>
             <div>
                 <label className="header">
                 To Do :
-                <input type="text"  />
+                <input className="my-input" type="text" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
                 </label>
             </div>
             <div className="base">
                 <div className="nav">
                     <div className="btn-group">
                             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                Select
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><button className="dropdown-item" type="button" onClick={() => setStatus("all")}>All</button></li>
