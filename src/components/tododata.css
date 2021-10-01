@@ -4,7 +4,7 @@
 .header {
   text-align: left;
   margin: 150px 500px 0px;
-  padding: 3px 35px;
+  padding: 3px 85px;
   /* padding-left: 35px; */
 
   font-size: 40px;
@@ -12,7 +12,7 @@
   border-radius: 30px;
 }
 .base {
-  margin: 50px 500px 0px;
+  margin: 50px 500px 30px;
   padding: 40px;
   border: 2px solid rgba(225, 0, 255, 0.301);
   border-radius: 30px;

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css'
 import "@popperjs/core" 
 import "bootstrap/dist/js/bootstrap"
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -1,19 +1,26 @@
 import React from "react";
+import DeleteToDo from "./DeleteToDo";
+import './item.css'
 
-
-function item(value,index,changeCompleteState){
+function Item({value,index,changeState,del}){
 
     return(                    
-                <div key={index}>                               
-                        <label className="list-group-item" >
-                        <input className="form-check-input me-1" type="checkbox" value="" checked={(value.completed) ? "checked" : ""} 
-                        onChange={() =>{                            
-                            changeCompleteState(!value.completed, value.id)
-                        }} />
-                            {value.title}
-                        </label>
-                    <br/>
+                <div className="items">
+                    <div key={index}>                               
+                            <label className="list-group-item" >
+                            <div>
+                            <input className="form-check-input me-1" type="checkbox" value="" checked={(value.completed) ? "checked" : ""} 
+                            onChange={() =>{                            
+                                changeState(!value.completed, value.id)
+                            }} />
+                                {value.title}
+                                
+                            </div>
+                                <DeleteToDo index={index} del={del}/>
+                            </label>
+                        <br/>
+                    </div>
                 </div>
     )
 }
-export default item;
+export default Item;

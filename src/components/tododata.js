@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './tododata.css' 
-import item from './item';
+import Item from './Item';
 const axios = require('axios').default;
 
 function Tododata(){
@@ -27,18 +27,29 @@ function Tododata(){
     useEffect(() => {
         let list = [...todo]
         switch(status){
-
                 case "completed":
                     list=list.filter(td => td.completed);
                     break;
                 case "uncompleted":
                     list=list.filter(td => !td.completed);
                     break;
+                default :
+                    break;
         }
         list=list.filter(td => td.title.toLowerCase().includes(searchText.toLowerCase()))
         setFilteredTodos(list)
     }, [status,todo,searchText])
                 
+    const changeCompleteState = (com,id) => {
+        setTodo(todo.map(todo => {
+            if(todo.id===id) return{...todo,completed:com};
+            return todo;
+        }))
+    }
+
+    const del = (index)  => {
+        setTodo(todo.filter((todo,i) => {return index !== i}))
+    }
 //    const handleCompleted = (value) => {
 //         return !value 
 //     }
@@ -47,13 +58,6 @@ function Tododata(){
     //     axios.patch(`https://jsonplaceholder.typicode.com/todos/${checkId}`,{completed: check})
     //     .then(response => console.log(response.data));
     // },[check])
-
-    const changeCompleteState = (value,id) => {
-        setTodo(todo.map(todo => {
-            if(todo.id===id) return{...todo,completed:value};
-            return todo;
-        }))
-    }
 
     return(
         <div>
@@ -70,7 +74,7 @@ function Tododata(){
                                 Select
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><button className="dropdown-item" type="button" onClick={() => setStatus("all")}>All</button></li>
+                                <li><button className="dropdown-item" type="button" onClick={() =>  setStatus("all")}>All</button></li>
                                 <li><button className="dropdown-item" type="button" onClick={() =>  setStatus("completed")}>Completed</button></li>
                                 <li><button className="dropdown-item" type="button" onClick={() =>  setStatus("uncompleted")}>UnCompleted</button></li>
                             </ul>
@@ -78,7 +82,7 @@ function Tododata(){
                     </div>
                     <br/>
                 <div className="list-group">
-                    {filteredTodos.map((value,index) =>item(value,index,changeCompleteState) )}
+                    {filteredTodos.map((value,index) =><Item key={index} value={value} index={index} changeState={changeCompleteState} del={del}/> )}
                 </div>
             </div>
         </div>
